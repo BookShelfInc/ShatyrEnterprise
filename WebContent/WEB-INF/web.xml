@@ -9,4 +9,22 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>MainServlet</servlet-name>
+    <servlet-class>MainServlet</servlet-class>
+    <init-param>
+        <param-name>jdbcUrl</param-name>
+        <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+    </init-param>
+    <init-param>
+        <param-name>dbUsername</param-name>
+        <param-value>postgres</param-value>
+    </init-param>
+    <init-param>
+        <param-name>dbPassword</param-name>
+        <param-value>adminadmin1</param-value>
+    </init-param>
+  </servlet>
+  
 </web-app>
