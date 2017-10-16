@@ -60,6 +60,10 @@ public class PostUpdateServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		if(post == null) {
+			System.out.println("kapec");
+		}
+		
 		request.setAttribute("myPosts", post);
 		
 		request.getRequestDispatcher("/WEB-INF/post_update.jsp").forward(request, response);
@@ -67,15 +71,18 @@ public class PostUpdateServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int postId = getArticlePageNoFromURL(request.getRequestURL().toString());
+		Long postId = (long)(getArticlePageNoFromURL(request.getRequestURL().toString()));
 		PostDTO updatedPost = null;
 		
 		try {
-			updatedPost = this.postDao.getPostById((long) postId);
+			updatedPost = this.postDao.getPostById(postId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		if(updatedPost == null) {
+			System.out.println("kapec");
+		}
 		
 		
 		updatedPost.setAddress(request.getParameter("address"));

@@ -45,6 +45,7 @@ public class PostDAO implements IPost {
             post.setCreationDate(rs.getTimestamp("creation_date"));
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
+            post.setNum_rooms(rs.getInt("num_rooms"));
             
             allPosts.add(post);
 		}
@@ -72,6 +73,7 @@ public class PostDAO implements IPost {
             post.setCreationDate(rs.getTimestamp("creation_date"));
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
+            post.setNum_rooms(rs.getInt("num_rooms"));
             return post;
 		}
 		
@@ -219,6 +221,7 @@ public class PostDAO implements IPost {
             post.setCreationDate(rs.getTimestamp("creation_date"));
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
+            post.setNum_rooms(rs.getInt("num_rooms"));
             
             filteredPosts.add(post);
 		}
@@ -247,6 +250,7 @@ public class PostDAO implements IPost {
             post.setCreationDate(rs.getTimestamp("creation_date"));
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
+            post.setNum_rooms(rs.getInt("num_rooms"));
             
             filteredPosts.add(post);
 		}
