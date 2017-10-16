@@ -13,6 +13,7 @@
 		<a href='post_detail/<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>
 		<p><c:out value="${a.getPrice()}"/></p>
 		<p><c:out value="${a.getArea()}"/></p>
+		<a href='post_update/<c:out value="${a.getId()}"/>'> Edit </a>
 		<br>
 	</c:forEach>
 </body>

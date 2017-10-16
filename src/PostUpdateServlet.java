@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -14,21 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.PostDAO;
-import dao.UserDAO;
 import db.DBUtil;
 import dto.PostDTO;
-import dto.UserDTO;
 import exceptions.DBException;
 import exceptions.PostWasNotCreated;
 
-//@WebServlet("/PostDetailServlet")
-public class PostDetailServlet extends HttpServlet {
+//@WebServlet("/PostUpdateServlet")
+public class PostUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public PostDetailServlet() {
+       
+    public PostUpdateServlet() {
         super();
     }
-
+    
     private PostDAO postDao;
     
     @Override
@@ -52,7 +49,7 @@ public class PostDetailServlet extends HttpServlet {
 	    
 	    postDao = new PostDAO(conn);
 	}
-    
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int postId = getArticlePageNoFromURL(request.getRequestURL().toString());
 		PostDTO post = null;
@@ -63,13 +60,44 @@ public class PostDetailServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.setAttribute("post", post);
+		request.setAttribute("myPosts", post);
 		
-		request.getRequestDispatcher("/WEB-INF/post_detail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/post_update.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int postId = getArticlePageNoFromURL(request.getRequestURL().toString());
+		PostDTO updatedPost = null;
+		
+		try {
+			updatedPost = this.postDao.getPostById((long) postId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		updatedPost.setAddress(request.getParameter("address"));
+		updatedPost.setArchived(false);
+		updatedPost.setArea(Integer.parseInt(request.getParameter("area")));
+		updatedPost.setCreationDate(new Timestamp(System.currentTimeMillis()));
+		updatedPost.setDescription(request.getParameter("description"));
+		updatedPost.setFloor(Integer.parseInt(request.getParameter("floor")));
+		updatedPost.setHouse_type(request.getParameter("house_type"));
+		updatedPost.setNum_rooms(Integer.parseInt(request.getParameter("rooms")));
+		updatedPost.setPhone(request.getParameter("phone"));
+		updatedPost.setPrice(Long.parseLong(request.getParameter("price")));
+		updatedPost.setYear(Long.parseLong(request.getParameter("year")));
+		
+		
+		try {
+			postDao.updatePost(updatedPost);
+		} catch (SQLException e) {
+			throw new PostWasNotCreated();
+		}
+		
+		response.sendRedirect(request.getContextPath());
 	}
 	
 	private int getArticlePageNoFromURL(String url) {
@@ -87,5 +115,4 @@ public class PostDetailServlet extends HttpServlet {
 
         return 0;
     }
-
 }

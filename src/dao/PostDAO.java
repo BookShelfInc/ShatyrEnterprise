@@ -111,7 +111,6 @@ public class PostDAO implements IPost {
         if(rs.next() && rs != null) {
         		post.setId(rs.getLong("id"));
         		
-        		
             return post;
         }
         

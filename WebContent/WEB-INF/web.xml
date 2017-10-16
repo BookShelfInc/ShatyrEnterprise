@@ -25,6 +25,7 @@
       <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
+  
   <servlet>
     <servlet-name>SignInServlet</servlet-name>
     <servlet-class>SignInServlet</servlet-class>
@@ -41,6 +42,7 @@
       <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
+  
   <servlet>
     <servlet-name>SignUpServlet</servlet-name>
     <servlet-class>SignUpServlet</servlet-class>
@@ -57,11 +59,29 @@
       <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
+  
   <servlet>
     <servlet-name>SignOutServlet</servlet-name>
     <servlet-class>SignOutServlet</servlet-class>
   </servlet>
-
+  
+  <servlet>
+  	<servlet-name>PostUpdateServlet</servlet-name>
+    <servlet-class>PostUpdateServlet</servlet-class>
+    <init-param>
+      <param-name>jdbcUrl</param-name>
+      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbUsername</param-name>
+      <param-value>postgres</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbPassword</param-name>
+      <param-value>liverpool1892</param-value>
+    </init-param>
+  </servlet>
+  
   <servlet>
     <servlet-name>CreatePostServlet</servlet-name>
     <servlet-class>CreatePostServlet</servlet-class>
@@ -78,7 +98,6 @@
       <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
-  
   <servlet>
     <servlet-name>PostDetailServlet</servlet-name>
     <servlet-class>PostDetailServlet</servlet-class>
@@ -95,11 +114,10 @@
       <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
-  
   <servlet>
-  	<servlet-name>MyPostsServlet</servlet-name>
-  	<servlet-class>MyPostsServlet</servlet-class>
-  	<init-param>
+    <servlet-name>MyPostsServlet</servlet-name>
+    <servlet-class>MyPostsServlet</servlet-class>
+    <init-param>
       <param-name>jdbcUrl</param-name>
       <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
     </init-param>
@@ -112,21 +130,18 @@
       <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>CreatePostServlet</servlet-name>
     <url-pattern>/create_post</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>MyPostsServlet</servlet-name>
     <url-pattern>/my_post</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>PostDetailServlet</servlet-name>
     <url-pattern>/post_detail/*</url-pattern>
-</servlet-mapping>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>MainServlet</servlet-name>
     <url-pattern>/</url-pattern>
@@ -147,4 +162,9 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/public/*</url-pattern>
   </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>PostUpdateServlet</servlet-name>
+    <url-pattern>/post_update/*</url-pattern>
+ </servlet-mapping>
 </web-app>
