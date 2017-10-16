@@ -190,10 +190,14 @@ public class PostDAO implements IPost {
 		    String key = entry.getSecond();
 		    String value = entry.getThird();
 		    
-		    if(value != null) {
+		    if(value != "") {
 		    		sql += ((first == true ? "" : " and ") + key + (isNum==true ? ">=" : "=") + (isNum==true ? "" : "'") + value + (isNum==true ? "" : "'"));
+		    		first = false;
 		    }
-		    first = false;
+		}
+		
+		if(first) {
+			sql = "select * from posts";
 		}
 		
 		System.out.println(sql);

@@ -31,16 +31,38 @@
 <br>
 <br>
 
-<form action="${pageContext.request.contextPath}/" method="POST">
-	<label> E-mail</label>
-    <input type="email" name="email" />
 
-    <label> Password</label>
-    <input type="password" name="password" />
+<h3>Filter:</h3>
+<form action="${pageContext.request.contextPath}/" method="POST">
+	<label> Area </label>
+    <input type="number" name="area"/>
+    <br>
+
+    <label> Price</label>
+    <input type="number" name="price"/>
+    <br>
+    
+    <label> Number of rooms </label>
+    <input type="number" name="num_rooms"/>
+    <br>
+
+    <label> HouseType</label>
+    <select name="Points" size="1" id="Points">
+		<c:forEach items="${houseTypes}" var="a" varStatus="cnt">
+			<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>w
+		</c:forEach>
+	</select>
+	<br>
+	
+	<label> Floor</label>
+    <input type="number" name="floor"/>
+    <br>
 
     <input type="submit" name="pageName" value="Filter"/>
 </form>
 
+<br>
+<h3>Order by:</h3>
 <form action="${pageContext.request.contextPath}/" method="POST">
 	<select name="Points" size="1" id="Points">
 		<c:forEach items="${ordersList}" var="a" varStatus="cnt">

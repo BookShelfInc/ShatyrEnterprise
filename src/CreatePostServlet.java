@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -13,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import dao.PostDAO;
 import dao.UserDAO;
@@ -26,12 +25,13 @@ import exceptions.UserWasNotCreated;
 //@WebServlet("/CreatePostServlet")
 public class CreatePostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	private PostDAO postDao;
 	private UserDAO userDao;
+	private ArrayList<String> house_types;
 	
     public CreatePostServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     @Override
@@ -54,11 +54,21 @@ public class CreatePostServlet extends HttpServlet {
 	    
 	    postDao = new PostDAO(conn);
 	    userDao = new UserDAO(conn);
+	    
+	    try {
+			house_types = postDao.getHouseTypes();
+			for(String s: house_types) {
+				System.out.println(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		request.setAttribute("houseTypes", house_types);
+		
 		HttpSession userSession = request.getSession();
 		if (userSession == null || userSession.getAttribute("authUser") == null) {
 			response.sendRedirect(request.getContextPath());
@@ -70,17 +80,24 @@ public class CreatePostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PostDTO newPost = new PostDTO();
 		
+		String selectedItem = "";
+		if(request.getParameter("Points") != null){
+		   selectedItem = request.getParameter("Points").toString();
+		}
+		
 		newPost.setAddress(request.getParameter("address"));
 		newPost.setArchived(false);
 		newPost.setArea(Integer.parseInt(request.getParameter("area")));
 		newPost.setCreationDate(new Timestamp(System.currentTimeMillis()));
 		newPost.setDescription(request.getParameter("description"));
 		newPost.setFloor(Integer.parseInt(request.getParameter("floor")));
-		newPost.setHouse_type(request.getParameter("house_type"));
+		newPost.setHouse_type(selectedItem);
 		newPost.setNum_rooms(Integer.parseInt(request.getParameter("rooms")));
 		newPost.setPhone(request.getParameter("phone"));
 		newPost.setPrice(Long.parseLong(request.getParameter("price")));
 		newPost.setYear(Long.parseLong(request.getParameter("year")));
+		
+		request.setAttribute("houseTypes", house_types);
 		
 		try {
 			newPost = postDao.addPost(newPost);
@@ -91,9 +108,7 @@ public class CreatePostServlet extends HttpServlet {
 		if(newPost != null) {
 			try {
 				HttpSession userSession = request.getSession();
-				if(!userDao.addPostToUser(((UserDTO)userSession.getAttribute("authUser")).getId(), newPost.getId())) {
-					System.out.println("Didn't bind post to user"); 
-				}
+				userDao.addPostToUser(((UserDTO)userSession.getAttribute("authUser")).getId(), newPost.getId());
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

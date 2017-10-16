@@ -34,6 +34,7 @@ public class MainServlet extends HttpServlet {
     private UserDAO userDao;
     private PostDAO postDao;
     private ArrayList<String> orders;
+    private ArrayList<String> house_types;
     
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -63,6 +64,15 @@ public class MainServlet extends HttpServlet {
 	    
 	    userDao = new UserDAO(conn);
 	    postDao = new PostDAO(conn);
+	    
+	    try {
+			house_types = postDao.getHouseTypes();
+			for(String s: house_types) {
+				System.out.println(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
     
 	
@@ -75,7 +85,7 @@ public class MainServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("allPosts", allPosts);
-		
+		request.setAttribute("houseTypes", house_types);
 		request.setAttribute("ordersList", orders);
 		
 		HttpSession userSession = request.getSession();
@@ -97,6 +107,7 @@ public class MainServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("ordersList", orders);
+		request.setAttribute("houseTypes", house_types);
 		
 		ArrayList<PostDTO> allPosts = new ArrayList<PostDTO>();
 		
@@ -109,9 +120,16 @@ public class MainServlet extends HttpServlet {
 			}
 		} else {
 			try {
+				
 				ArrayList<Triplet<Boolean, String, String>> m = new ArrayList<Triplet<Boolean, String, String>>();
-				m.add(new Triplet(false, "address", "lenin"));
-				m.add(new Triplet(true, "area", "150"));
+				m.add(new Triplet(true, "area", request.getParameter("area")));
+				m.add(new Triplet(true, "price", request.getParameter("price")));
+				m.add(new Triplet(true, "num_rooms", request.getParameter("num_rooms")));
+				m.add(new Triplet(false, "house_type", selectedItem));
+				m.add(new Triplet(true, "floor", request.getParameter("floor")));
+				
+				System.out.print(request.getParameter("area"));
+				
 				
 				allPosts = postDao.getPostsByFilter(m);
 			} catch (SQLException e) {
