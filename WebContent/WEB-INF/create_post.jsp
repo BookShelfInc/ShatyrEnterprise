@@ -7,7 +7,7 @@
 <title>Create Post</title>
 </head>
 <body>
-	<form action="/create_post" method="POST">
+	<form action="" method="POST">
 			<label>Address</label>
     			<input type="text" name="address"/>
     			<br>
@@ -34,6 +34,8 @@
 		    <br>
 		    <label>Year</label>
 		    <input type="text" name="year"/>
+		    
+		    <input type="submit" value="SUBMIT">
 	</form>
 </body>
 </html>

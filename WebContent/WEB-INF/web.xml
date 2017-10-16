@@ -65,16 +65,52 @@
   <servlet>
     <servlet-name>CreatePostServlet</servlet-name>
     <servlet-class>CreatePostServlet</servlet-class>
+    <init-param>
+      <param-name>jdbcUrl</param-name>
+      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbUsername</param-name>
+      <param-value>postgres</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbPassword</param-name>
+      <param-value>liverpool1892</param-value>
+    </init-param>
   </servlet>
   
   <servlet>
     <servlet-name>PostDetailServlet</servlet-name>
     <servlet-class>PostDetailServlet</servlet-class>
+    <init-param>
+      <param-name>jdbcUrl</param-name>
+      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbUsername</param-name>
+      <param-value>postgres</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbPassword</param-name>
+      <param-value>liverpool1892</param-value>
+    </init-param>
   </servlet>
   
   <servlet>
   	<servlet-name>MyPostsServlet</servlet-name>
   	<servlet-class>MyPostsServlet</servlet-class>
+  	<init-param>
+      <param-name>jdbcUrl</param-name>
+      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbUsername</param-name>
+      <param-value>postgres</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dbPassword</param-name>
+      <param-value>liverpool1892</param-value>
+    </init-param>
   </servlet>
   
   <servlet-mapping>
