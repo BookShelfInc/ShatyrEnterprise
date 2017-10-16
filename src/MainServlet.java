@@ -62,11 +62,7 @@ public class MainServlet extends HttpServlet {
 		
 		ArrayList<PostDTO> allPosts = null;
 		try {
-			ArrayList<Triplet<Boolean, String, String>> m = new ArrayList<Triplet<Boolean, String, String>>();
-			m.add(new Triplet(false, "address", "lenin"));
-			m.add(new Triplet(true, "area", "150"));
-			
-			allPosts = postDao.getPostsByFilter(m);
+			allPosts = postDao.getAllPosts();
 		} catch (SQLException e) {
 			throw new PostWasNotCreated();
 		}
