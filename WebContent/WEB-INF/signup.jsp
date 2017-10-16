@@ -9,7 +9,7 @@
 <body>
 
 <h1> Sign-up </h1>
-<form action="" method="POST">
+<form action="${pageContext.request.contextPath}/signup" method="POST">
     <label> E-mail</label>
     <input type="email" name="email" required/>
 
