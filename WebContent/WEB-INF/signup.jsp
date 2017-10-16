@@ -8,7 +8,19 @@
 </head>
 <body>
 
-<h1>Sign-up</h1>
+<h1> Sign-up </h1>
+<form action="" method="POST">
+    <label> E-mail</label>
+    <input type="email" name="email" required/>
+
+    <label> Password</label>
+    <input type="password" name="password" required/>
+    
+    <label> Re-Password</label>
+    <input type="password" name="repassword" required/>
+
+    <input type="submit" value="Submit"/>
+</form>
 
 </body>
 </html>
