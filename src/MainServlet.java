@@ -33,6 +33,7 @@ public class MainServlet extends HttpServlet {
     
     private UserDAO userDao;
     private PostDAO postDao;
+    private ArrayList<String> orders;
     
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -53,13 +54,19 @@ public class MainServlet extends HttpServlet {
             e.printStackTrace();
         }
 	    
+	    orders = new ArrayList<String>();
+		orders.add("area");
+		orders.add("price");
+		orders.add("year");
+		orders.add("num_rooms");
+		orders.add("creation_date");
+	    
 	    userDao = new UserDAO(conn);
 	    postDao = new PostDAO(conn);
 	}
     
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		ArrayList<PostDTO> allPosts = null;
 		try {
 			allPosts = postDao.getAllPosts();
@@ -68,6 +75,8 @@ public class MainServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("allPosts", allPosts);
+		
+		request.setAttribute("ordersList", orders);
 		
 		HttpSession userSession = request.getSession();
         if (userSession == null || userSession.getAttribute("authUser") == null) {
@@ -81,7 +90,36 @@ public class MainServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		doGet(request, response);
-		System.out.println(request.getParameter("pageName"));
+		
+		String selectedItem = "";
+		if(request.getParameter("Points") != null){
+		   selectedItem = request.getParameter("Points").toString();
+		}
+		
+		request.setAttribute("ordersList", orders);
+		
+		ArrayList<PostDTO> allPosts = new ArrayList<PostDTO>();
+		
+		request.setAttribute("allPosts", allPosts);
+		if(request.getParameter("pageName").equals("Order")) {
+			try {
+				allPosts = postDao.getPostsByOrder(selectedItem);
+			} catch (SQLException e) {
+				throw new PostWasNotCreated();
+			}
+		} else {
+			try {
+				ArrayList<Triplet<Boolean, String, String>> m = new ArrayList<Triplet<Boolean, String, String>>();
+				m.add(new Triplet(false, "address", "lenin"));
+				m.add(new Triplet(true, "area", "150"));
+				
+				allPosts = postDao.getPostsByFilter(m);
+			} catch (SQLException e) {
+				throw new PostWasNotCreated();
+			}
+		}
+		request.setAttribute("allPosts", allPosts);
+		
 		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 }

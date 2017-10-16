@@ -9,7 +9,7 @@
 <body>
 
 <h1> Sign-In </h1>
-<form action="" method="POST">
+<form action="${pageContext.request.contextPath}/login" method="POST">
     <label> E-mail</label>
     <input type="email" name="email" required/>
 

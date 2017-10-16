@@ -31,7 +31,7 @@
 <br>
 <br>
 
-<form action="/" method="POST">
+<form action="${pageContext.request.contextPath}/" method="POST">
 	<label> E-mail</label>
     <input type="email" name="email" />
 
@@ -41,14 +41,14 @@
     <input type="submit" name="pageName" value="Filter"/>
 </form>
 
-<form action="" method="POST">
-	<label> E-mail</label>
-    <input type="email" name="email" />
+<form action="${pageContext.request.contextPath}/" method="POST">
+	<select name="Points" size="1" id="Points">
+		<c:forEach items="${ordersList}" var="a" varStatus="cnt">
+			<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>
+		</c:forEach>
+	</select>
 
-    <label> Password</label>
-    <input type="password" name="password" />
-
-    <input type="submit"  value="Order"/>
+    <input type="submit" name="pageName" value="Order"/>
 </form>
 
 <br>
