@@ -11,10 +11,10 @@
 <h1> Sign-In </h1>
 <form action="" method="POST">
     <label> E-mail</label>
-    <input type="email" name="email"/>
+    <input type="email" name="email" required/>
 
     <label> Password</label>
-    <input type="password" name="password"/>
+    <input type="password" name="password" required/>
 
     <input type="submit" value="Submit"/>
 </form>
