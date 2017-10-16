@@ -70,7 +70,6 @@ public class MainServlet extends HttpServlet {
 		request.setAttribute("allPosts", allPosts);
 		
 		HttpSession userSession = request.getSession();
-
         if (userSession == null || userSession.getAttribute("authUser") == null) {
         		request.setAttribute("authUser", null);
         } else {
@@ -81,6 +80,8 @@ public class MainServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+//		doGet(request, response);
+		System.out.println(request.getParameter("pageName"));
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 }
