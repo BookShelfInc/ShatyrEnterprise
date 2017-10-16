@@ -33,6 +33,7 @@
 <c:forEach items="${allPosts}" var="a" varStatus="cnt">
 	<a href='post_detail/<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>
 	<p><c:out value="${a.getPrice()}"/></p>
+	<p><c:out value="${a.getArea()}"/></p>
 	<br>
 </c:forEach>
 

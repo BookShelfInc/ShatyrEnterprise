@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.PostDAO;
+import dao.Triplet;
 import dao.UserDAO;
 import db.DBUtil;
 import dto.PostDTO;
@@ -60,7 +62,11 @@ public class MainServlet extends HttpServlet {
 		
 		ArrayList<PostDTO> allPosts = null;
 		try {
-			allPosts = postDao.getAllPosts();
+			ArrayList<Triplet<Boolean, String, String>> m = new ArrayList<Triplet<Boolean, String, String>>();
+			m.add(new Triplet(false, "address", "lenin"));
+			m.add(new Triplet(true, "area", "150"));
+			
+			allPosts = postDao.getPostsByFilter(m);
 		} catch (SQLException e) {
 			throw new PostWasNotCreated();
 		}

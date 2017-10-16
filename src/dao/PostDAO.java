@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.List;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -177,6 +180,87 @@ public class PostDAO implements IPost {
 		}
 		
 		return allTypes;
+	}
+
+	@Override
+	public ArrayList<PostDTO> getPostsByFilter(ArrayList<Triplet<Boolean, String, String>> filter) throws SQLException {
+		String sql = "select * from posts where ";
+		boolean first = true;
+		for(Triplet<Boolean, String, String> entry : filter) {
+			Boolean isNum = entry.getFirst();
+		    String key = entry.getSecond();
+		    String value = entry.getThird();
+		    
+		    if(value != null) {
+		    		sql += ((first == true ? "" : " and ") + key + (isNum==true ? ">=" : "=") + (isNum==true ? "" : "'") + value + (isNum==true ? "" : "'"));
+		    }
+		    first = false;
+		}
+		
+		System.out.println(sql);
+		
+		ArrayList<PostDTO> filteredPosts = new ArrayList<PostDTO>();
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+            PostDTO post = new PostDTO();
+            post.setId(rs.getLong("id"));
+            post.setAddress(rs.getString("address"));
+            post.setArea(rs.getInt("area"));
+            post.setHouse_type(rs.getString("house_type"));
+            post.setFloor(rs.getInt("floor"));
+            post.setPrice(rs.getLong("price"));
+            post.setDescription(rs.getString("description"));
+            post.setYear(rs.getLong("year"));
+            post.setCreationDate(rs.getTimestamp("creation_date"));
+            post.setPhone(rs.getString("phone"));
+            post.setArchived(rs.getBoolean("archived"));
+            
+            filteredPosts.add(post);
+		}
+		
+		return filteredPosts;
+	}
+
+	@Override
+	public ArrayList<PostDTO> getPostsByOrder(String order) throws SQLException {
+		String sql = "select * from posts order by " + order + " desc";
+		
+		ArrayList<PostDTO> filteredPosts = new ArrayList<PostDTO>();
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+            PostDTO post = new PostDTO();
+            post.setId(rs.getLong("id"));
+            post.setAddress(rs.getString("address"));
+            post.setArea(rs.getInt("area"));
+            post.setHouse_type(rs.getString("house_type"));
+            post.setFloor(rs.getInt("floor"));
+            post.setPrice(rs.getLong("price"));
+            post.setDescription(rs.getString("description"));
+            post.setYear(rs.getLong("year"));
+            post.setCreationDate(rs.getTimestamp("creation_date"));
+            post.setPhone(rs.getString("phone"));
+            post.setArchived(rs.getBoolean("archived"));
+            
+            filteredPosts.add(post);
+		}
+		
+		return filteredPosts;
+	}
+
+	@Override
+	public boolean archivePost(Long post_id, boolean val) throws SQLException {
+		String sql = "update posts set archived=? where id=?";
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+		
+		stm.setBoolean(1, val);
+		stm.setLong(2, post_id);
+        
+        boolean afRows = stm.execute();
+        return afRows;
 	}
 	
 }
