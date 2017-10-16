@@ -20,7 +20,7 @@
 
 <h1><c:out value="${val}"/></h1>
 
-<c:if test="${ authUser == null }">
+<c:if test="${authUser == null}">
 	<h3>Hello</h3>
 	<a href="login/">Sign-In</a>
 	<a href="signup/">Sign-up</a>

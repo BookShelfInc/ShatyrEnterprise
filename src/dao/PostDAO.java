@@ -162,5 +162,19 @@ public class PostDAO implements IPost {
 		
 		return false;
 	}
+
+	@Override
+	public ArrayList<String> getHouseTypes() throws SQLException {
+		ArrayList<String> allTypes = new ArrayList<String>();
+		String sql = "select * from house_types";
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+		
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+			allTypes.add(rs.getString("house_type"));
+		}
+		
+		return allTypes;
+	}
 	
 }

@@ -13,4 +13,6 @@ public interface IPost {
 	
 	public boolean updatePost(PostDTO post) throws SQLException;
 	public boolean deletePost(Long post_id) throws SQLException;
+	
+	public ArrayList<String> getHouseTypes() throws SQLException;
 }
