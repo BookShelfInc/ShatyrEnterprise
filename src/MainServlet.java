@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import db.DBUtil;
 import dto.PostDTO;
 import dto.UserDTO;
 import exceptions.DBException;
+import exceptions.PostWasNotCreated;
 import exceptions.UserWasNotCreated;
 
 //@WebServlet("/")
@@ -54,36 +56,21 @@ public class MainServlet extends HttpServlet {
 	}
     
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("main servlet");
+		ArrayList<PostDTO> allPosts = null;
 		
-//		PostDTO post = new PostDTO();
-//		post.setAddress("moscow");
-//		post.setArchived(false);
-//		post.setArea(120);
-//		post.setCreationDate(new Timestamp(System.currentTimeMillis()));
-//		post.setDescription("cool house");
-//		post.setFloor(10);
-//		post.setHouse_type("monolit");
-//		post.setNum_rooms(5);
-//		post.setPhone("2678364");
-//		post.setPrice(12000000L);
-//		post.setYear(2017L);
-//		
-//		try {
-//			post = postDao.addPost(post);
-//			System.out.println(post==null);
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			allPosts = postDao.getAllPosts();
+		} catch (SQLException e) {
+			throw new PostWasNotCreated();
+		}
 		
-		request.setAttribute("val", 123);
+		request.setAttribute("allPosts", allPosts);
 		
 		HttpSession userSession = request.getSession();
 
-        if (userSession == null || userSession.getAttribute("AUTHENTICATED") == null) {
+        if (userSession == null || userSession.getAttribute("authUser") == null) {
         		request.setAttribute("authUser", null);
         } else {
         		request.setAttribute("authUser", userSession.getAttribute("authUser"));

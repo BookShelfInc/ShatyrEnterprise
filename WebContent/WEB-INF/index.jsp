@@ -26,5 +26,14 @@
 	<a href="signup/">Sign-up</a>
 </c:if>
 
+<br>
+<br>
+<h1>Posts:</h1>
+<c:forEach items="${allPosts}" var="a" varStatus="cnt">
+	<a href='news?page=<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>
+	<p><c:out value="${a.getPrice()}"/></p>
+	<br>
+</c:forEach>
+
 </body>
 </html>
