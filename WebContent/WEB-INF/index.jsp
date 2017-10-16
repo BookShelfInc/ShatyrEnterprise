@@ -28,6 +28,29 @@
 
 <br>
 <br>
+
+<form action="/" method="POST">
+	<label> E-mail</label>
+    <input type="email" name="email" />
+
+    <label> Password</label>
+    <input type="password" name="password" />
+
+    <input type="submit" name="pageName" value="Filter"/>
+</form>
+
+<form action="" method="POST">
+	<label> E-mail</label>
+    <input type="email" name="email" />
+
+    <label> Password</label>
+    <input type="password" name="password" />
+
+    <input type="submit"  value="Order"/>
+</form>
+
+<br>
+<br>
 <h1>Posts:</h1>
 <c:forEach items="${allPosts}" var="a" varStatus="cnt">
 	<a href='news?page=<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>

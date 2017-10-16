@@ -10,6 +10,7 @@ import java.util.List;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import dto.PostDTO;
 import dto.UserDTO;
 
 public class UserDAO implements IUser{
@@ -120,6 +121,35 @@ public class UserDAO implements IUser{
 		}
 		
 		return null;
+	}
+
+	@Override
+	public ArrayList<PostDTO> getUsersPosts(Long user_id) throws SQLException {
+		ArrayList<PostDTO> allPosts = new ArrayList<PostDTO>();
+		
+		String sql = "select * from posts where posts.id in (select id from users_posts where user_id=?)";
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+		stm.setLong(1, user_id);
+
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+            PostDTO post = new PostDTO();
+            post.setId(rs.getLong("id"));
+            post.setAddress(rs.getString("address"));
+            post.setArea(rs.getInt("area"));
+            post.setHouse_type(rs.getString("house_type"));
+            post.setFloor(rs.getInt("floor"));
+            post.setPrice(rs.getLong("price"));
+            post.setDescription(rs.getString("description"));
+            post.setYear(rs.getLong("year"));
+            post.setCreationDate(rs.getTimestamp("creation_date"));
+            post.setPhone(rs.getString("phone"));
+            post.setArchived(rs.getBoolean("archived"));
+            
+            allPosts.add(post);
+		}
+		
+		return allPosts;
 	}
 
 }
