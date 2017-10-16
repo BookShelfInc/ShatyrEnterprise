@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import dao.PostDAO;
 import dao.UserDAO;
@@ -19,7 +19,7 @@ import dto.UserDTO;
 import exceptions.DBException;
 import exceptions.UserWasNotCreated;
 
-@WebServlet("/main")
+//@WebServlet("/")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -54,20 +54,12 @@ public class MainServlet extends HttpServlet {
 	}
     
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
-//		UserDTO user = null;
-//		
-//		try {
-//			user = userDao.getUserById(1L);
-//			System.out.println(user.getEmail());
-//		} catch (SQLException e) {
-//			throw new UserWasNotCreated(); 
-//		}
+		System.out.println("main servlet");
 		
 //		PostDTO post = new PostDTO();
-//		post.setAddress("leanin");
+//		post.setAddress("moscow");
 //		post.setArchived(false);
 //		post.setArea(120);
 //		post.setCreationDate(new Timestamp(System.currentTimeMillis()));
@@ -83,15 +75,20 @@ public class MainServlet extends HttpServlet {
 //			post = postDao.addPost(post);
 //			System.out.println(post==null);
 //			
-////			post.setAddress("new_york");
-////			postDao.updatePost(post);
 //		} catch (SQLException e) {
 //			e.printStackTrace();
 //		}
 		
+		request.setAttribute("val", 123);
 		
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-//		request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
+		HttpSession userSession = request.getSession();
+
+        if (userSession == null || userSession.getAttribute("AUTHENTICATED") == null) {
+        		request.setAttribute("authUser", null);
+        } else {
+        		request.setAttribute("authUser", userSession.getAttribute("authUser"));
+        }
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
 	

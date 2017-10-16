@@ -39,11 +39,10 @@ public class UserDAO implements IUser{
 	}
 
 	@Override
-	public UserDTO getUserByEmail(String email, String password) throws SQLException {
-		String sql = "select * from users where email=? and password=?";
+	public UserDTO getUserByEmail(String email) throws SQLException {
+		String sql = "select * from users where email=?";
 		PreparedStatement stm = this.connection.prepareStatement(sql);
         stm.setString(1, email);
-        stm.setString(2, password);
 
 		ResultSet rs = stm.executeQuery();
 		while (rs.next()) {
@@ -102,6 +101,25 @@ public class UserDAO implements IUser{
         
         boolean afRows = stm.execute();
 		return afRows;
+	}
+
+	@Override
+	public UserDTO loginUser(String email, String password) throws SQLException {
+		String sql = "select * from users where email=? and password=?";
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+        stm.setString(1, email);
+        stm.setString(2, password);
+
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+            UserDTO userDto = new UserDTO();
+            userDto.setId(rs.getLong("id"));
+            userDto.setEmail(rs.getString("email"));
+            userDto.setPassword(rs.getString("password"));
+            return userDto;
+		}
+		
+		return null;
 	}
 
 }
