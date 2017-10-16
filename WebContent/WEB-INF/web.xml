@@ -120,7 +120,7 @@
   
   <servlet-mapping>
     <servlet-name>MyPostsServlet</servlet-name>
-    <url-pattern>/posts</url-pattern>
+    <url-pattern>/my_post</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

@@ -17,6 +17,7 @@
 	<h3>Hello <c:out value="${authUser.getEmail()}"/></h3>
 	<a href="signout/">Sign-Out</a>
 	<a href="create_post">Create Post</a>
+	<a href="my_post">My Posts</a>
 </c:if>
 
 <h1><c:out value="${val}"/></h1>

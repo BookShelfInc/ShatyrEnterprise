@@ -63,7 +63,7 @@ public class CreatePostServlet extends HttpServlet {
 		if (userSession == null || userSession.getAttribute("authUser") == null) {
 			response.sendRedirect(request.getContextPath());
 		} else {
-		request.getRequestDispatcher("/WEB-INF/create_post.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/create_post.jsp").forward(request, response);
 		}
 	}
 
