@@ -21,11 +21,20 @@
 
 <h1><c:out value="${val}"/></h1>
 
-<c:if test="${ authUser == null }">
+<c:if test="${authUser == null}">
 	<h3>Hello</h3>
 	<a href="login/">Sign-In</a>
 	<a href="signup/">Sign-up</a>
 </c:if>
+
+<br>
+<br>
+<h1>Posts:</h1>
+<c:forEach items="${allPosts}" var="a" varStatus="cnt">
+	<a href='post_detail/<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>
+	<p><c:out value="${a.getPrice()}"/></p>
+	<br>
+</c:forEach>
 
 </body>
 </html>

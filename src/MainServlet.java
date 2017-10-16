@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import db.DBUtil;
 import dto.PostDTO;
 import dto.UserDTO;
 import exceptions.DBException;
+import exceptions.PostWasNotCreated;
 import exceptions.UserWasNotCreated;
 
 //@WebServlet("/")
@@ -54,11 +56,16 @@ public class MainServlet extends HttpServlet {
 	}
     
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("main servlet");
+		ArrayList<PostDTO> allPosts = null;
+		try {
+			allPosts = postDao.getAllPosts();
+		} catch (SQLException e) {
+			throw new PostWasNotCreated();
+		}
 		
-		request.setAttribute("val", 123);
+		request.setAttribute("allPosts", allPosts);
 		
 		HttpSession userSession = request.getSession();
 

@@ -18,6 +18,7 @@ import dao.PostDAO;
 import dao.UserDAO;
 import db.DBUtil;
 import dto.PostDTO;
+import dto.UserDTO;
 import exceptions.DBException;
 import exceptions.PostWasNotCreated;
 import exceptions.UserWasNotCreated;
@@ -26,6 +27,7 @@ import exceptions.UserWasNotCreated;
 public class CreatePostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PostDAO postDao;
+	private UserDAO userDao;
 	
     public CreatePostServlet() {
         super();
@@ -51,20 +53,21 @@ public class CreatePostServlet extends HttpServlet {
         }
 	    
 	    postDao = new PostDAO(conn);
+	    userDao = new UserDAO(conn);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("/WEB-INF/create_post.jsp").forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession userSession = request.getSession();
 		if (userSession == null || userSession.getAttribute("authUser") == null) {
 			response.sendRedirect(request.getContextPath());
+		} else {
+		request.getRequestDispatcher("/WEB-INF/create_post.jsp").forward(request, response);
 		}
-		
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PostDTO newPost = new PostDTO();
 		
 		newPost.setAddress(request.getParameter("address"));
@@ -86,6 +89,15 @@ public class CreatePostServlet extends HttpServlet {
 		}
 		
 		if(newPost != null) {
+			try {
+				HttpSession userSession = request.getSession();
+				if(!userDao.addPostToUser(((UserDTO)userSession.getAttribute("authUser")).getId(), newPost.getId())) {
+					System.out.println("Didn't bind post to user"); 
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 			response.sendRedirect(request.getContextPath());
 			System.out.println("Post have created");
 		}
@@ -93,5 +105,4 @@ public class CreatePostServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/create_post.jsp").forward(request, response);
 		}
 	}
-
 }

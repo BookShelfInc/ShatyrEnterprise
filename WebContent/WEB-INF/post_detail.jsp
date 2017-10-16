@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>${post.address}</h1>
+	<p>${post.area}</p>
+	<p>${post.house_type}</p>
+	<p>${post.num_rooms}</p>
+	<p>${post.price}</p>
+	<p>${post.description}</p>
+	<p>${post.phone}</p>
 </body>
 </html>
