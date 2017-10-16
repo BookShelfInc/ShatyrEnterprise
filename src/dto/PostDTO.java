@@ -17,7 +17,9 @@ public class PostDTO {
 	private String phone;
 	private boolean archived;
 	
-	public PostDTO() {}
+	public PostDTO() {
+		this.archived = false;
+	}
 	
 	public PostDTO(String _address, int _area, String _house_type, int _num_rooms, int _floor, 
 			Long _price, String _description, Long _year, Timestamp _creation_date, String _phone, boolean _archived) {

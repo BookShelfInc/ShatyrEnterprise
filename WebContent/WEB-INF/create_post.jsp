@@ -4,21 +4,36 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Create Post</title>
 </head>
 <body>
 	<form action="/create_post" method="POST">
-			<label> Name</label>
-    			<input type="text" name="name"/>
-    
-		    <label> E-mail</label>
-		    <input type="email" name="email"/>
-		
-		    <label> Password</label>
-		    <input type="password" name="password"/>
-		
-		    <label> Confirm password</label>
-		    <input type="password" name="confirmPassword"/>
+			<label>Address</label>
+    			<input type="text" name="address"/>
+    			<br>
+		    <label>Area</label>
+		    <input type="text" name="area"/>
+			<br>
+		    <label>Description</label>
+		    <input type="text" name="description"/>
+			<br>
+		    <label>Floor</label>
+		    <input type="text" name="floor"/>
+		    <br>
+		    <label>Type</label>
+		    <input type="text" name="house_type"/>
+		    <br>
+		    <label>Rooms</label>
+		    <input type="text" name="rooms"/>
+		    <br>
+		    <label>Phone</label>
+		    <input type="text" name="phone"/>
+		    <br>
+		    <label>Price</label>
+		    <input type="text" name="price"/>
+		    <br>
+		    <label>Year</label>
+		    <input type="text" name="year"/>
 	</form>
 </body>
 </html>

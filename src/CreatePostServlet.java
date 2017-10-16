@@ -32,11 +32,11 @@ public class CreatePostServlet extends HttpServlet {
 		newPost.setCreationDate(new Timestamp(System.currentTimeMillis()));
 		newPost.setDescription(request.getParameter("description"));
 		newPost.setFloor(Integer.parseInt(request.getParameter("floor")));
-		newPost.setHouse_type(Integer.parseInt(request.getParameter("house_type")));
-//		newPost.setNum_rooms(5);
-//		newPost.setPhone("2678364");
-//		newPost.setPrice(12000000L);
-//		newPost.setYear(2017L);
+		newPost.setHouse_type(request.getParameter("house_type"));
+		newPost.setNum_rooms(Integer.parseInt(request.getParameter("rooms")));
+		newPost.setPhone(request.getParameter("phone"));
+		newPost.setPrice(Long.parseLong(request.getParameter("price")));
+		newPost.setYear(Long.parseLong(request.getParameter("year")));
 	}
 
 }
