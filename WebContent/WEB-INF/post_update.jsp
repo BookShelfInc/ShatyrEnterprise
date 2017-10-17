@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>${myPosts.getAddress()}</title>
 </head>
 <body>
-	<form action="" method="POST">
+	<form action="" method="POST" enctype="multipart/form-data">
 			<label>Address</label>
     			<input type="text" value='<c:out value="${myPosts.getAddress()}"/>' name="address"/>
     			<br>
@@ -45,6 +45,10 @@
 		    <br>
 		    <label>Year</label>
 		    <input type="text" value='<c:out value="${myPosts.getYear()}"/>' name="year"/>
+		    <br>
+		    <label>Image</label>
+	    			<input type="file" name="photo" />
+	    		<br>
 		    
 		    <input type="submit" value="SUBMIT">
 	</form>

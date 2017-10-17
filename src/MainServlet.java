@@ -46,7 +46,7 @@ public class MainServlet extends HttpServlet {
 	    System.out.println(jdbcUrl);
 	    System.out.println(dbUsername);
 	    System.out.println(dbPassword);
-
+	    
 	    Connection conn = null;
 
 	    try {
@@ -74,7 +74,6 @@ public class MainServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-    
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
