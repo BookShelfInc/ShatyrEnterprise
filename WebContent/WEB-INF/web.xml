@@ -22,7 +22,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
   
@@ -39,7 +39,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
   
@@ -56,7 +56,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
   
@@ -95,7 +95,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
   <servlet>
@@ -111,7 +111,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
   <servlet>
@@ -127,7 +127,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>liverpool1892</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
