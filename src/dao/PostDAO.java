@@ -46,6 +46,7 @@ public class PostDAO implements IPost {
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
             post.setNum_rooms(rs.getInt("num_rooms"));
+            post.setImage_url(rs.getString("image_url"));
             
             allPosts.add(post);
 		}
@@ -74,6 +75,7 @@ public class PostDAO implements IPost {
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
             post.setNum_rooms(rs.getInt("num_rooms"));
+            post.setImage_url(rs.getString("image_url"));
             return post;
 		}
 		
@@ -222,6 +224,7 @@ public class PostDAO implements IPost {
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
             post.setNum_rooms(rs.getInt("num_rooms"));
+            post.setImage_url(rs.getString("image_url"));
             
             filteredPosts.add(post);
 		}
@@ -251,6 +254,7 @@ public class PostDAO implements IPost {
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
             post.setNum_rooms(rs.getInt("num_rooms"));
+            post.setImage_url(rs.getString("image_url"));
             
             filteredPosts.add(post);
 		}

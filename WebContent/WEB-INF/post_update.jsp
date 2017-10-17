@@ -22,7 +22,17 @@
 		    <input type="text"  value='<c:out value="${myPosts.getFloor()}"/>' name="floor"/>
 		    <br>
 		    <label>Type</label>
-		    <input type="text"  value='<c:out value="${myPosts.getHouse_type()}"/>' name="house_type"/>
+		    <select name="Points" size="1" id="Points" required>
+				<c:forEach items="${houseTypes}" var="a" varStatus="cnt">
+					<c:if test = "${a == myPosts.getHouse_type()}">
+	    					<option value='<c:out value="${a}"/>' selected><c:out value="${a}"/></option>
+	                </c:if>
+	                <c:if test = "${a != myPosts.getHouse_type()}">
+	    					<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>
+	                </c:if>
+				</c:forEach>
+			</select>
+		    <%-- <input type="text"  value='<c:out value="${myPosts.getHouse_type()}"/>' name="house_type"/> --%>
 		    <br>
 		    <label>Rooms</label>
 		    <input type="text"  value='<c:out value="${myPosts.getNum_rooms()}"/>' name="rooms"/>
@@ -35,8 +45,9 @@
 		    <br>
 		    <label>Year</label>
 		    <input type="text" value='<c:out value="${myPosts.getYear()}"/>' name="year"/>
-		    
+		    <br>
 		    <input type="submit" value="SUBMIT">
 	</form>
+	<a href="my_post">Cancel</a>
 </body>
 </html>

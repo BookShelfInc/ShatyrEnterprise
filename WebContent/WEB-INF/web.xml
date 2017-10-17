@@ -14,7 +14,7 @@
     <servlet-class>MainServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -22,7 +22,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   
@@ -31,7 +31,7 @@
     <servlet-class>SignInServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -39,7 +39,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   
@@ -48,7 +48,7 @@
     <servlet-class>SignUpServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -56,7 +56,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   
@@ -70,7 +70,7 @@
     <servlet-class>PostUpdateServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -78,7 +78,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>adminadmin1</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   
@@ -87,7 +87,7 @@
     <servlet-class>CreatePostServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -95,7 +95,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   <servlet>
@@ -103,7 +103,7 @@
     <servlet-class>PostDetailServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -111,7 +111,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   <servlet>
@@ -119,7 +119,7 @@
     <servlet-class>MyPostsServlet</servlet-class>
     <init-param>
       <param-name>jdbcUrl</param-name>
-      <param-value>jdbc:postgresql://localhost:5432/shatyr</param-value>
+      <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>
     </init-param>
     <init-param>
       <param-name>dbUsername</param-name>
@@ -127,7 +127,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>somepostgres1</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -167,4 +167,9 @@
     <servlet-name>PostUpdateServlet</servlet-name>
     <url-pattern>/post_update/*</url-pattern>
  </servlet-mapping>
+ 
+   <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/styles/*</url-pattern>
+  </servlet-mapping>
 </web-app>

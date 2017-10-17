@@ -77,6 +77,7 @@ public class MainServlet extends HttpServlet {
     
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		ArrayList<PostDTO> allPosts = null;
 		try {
 			allPosts = postDao.getAllPosts();

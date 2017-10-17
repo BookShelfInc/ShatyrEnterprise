@@ -58,7 +58,7 @@ public class MyPostsServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		String goBack = request.getContextPath();
 		ArrayList<PostDTO> myPosts = null;
 		HttpSession userSession = request.getSession();
 		
@@ -70,8 +70,11 @@ public class MyPostsServlet extends HttpServlet {
 		
 		System.out.println(myPosts.size());
 		request.setAttribute("myPosts", myPosts);
+		request.setAttribute("rootPath", goBack);
 		
 		request.getRequestDispatcher("/WEB-INF/my_post.jsp").forward(request, response);
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

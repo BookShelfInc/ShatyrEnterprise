@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -8,10 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.PostDAO;
 import dao.UserDAO;
@@ -78,6 +86,31 @@ public class CreatePostServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		if (isMultipart) {
+			System.out.println("image");
+            FileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            try {
+                List<FileItem> multiparts = upload.parseRequest((RequestContext) request);
+
+               for (FileItem item : multiparts) {
+	               if (!item.isFormField()) {
+	            	   String name = new File(item.getName()).getName();
+	               item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
+	           }
+            }
+                    
+               request.setAttribute("message", "Your file has been uploaded!");
+            } 
+            catch (Exception e) 
+            {
+             request.setAttribute("message", "File Upload Failed due to " + e);
+            }
+	    } else {
+	    		System.out.println("not image");
+	    }*/
+		
 		PostDTO newPost = new PostDTO();
 		
 		String selectedItem = "";

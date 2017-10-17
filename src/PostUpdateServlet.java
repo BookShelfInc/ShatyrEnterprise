@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -27,6 +28,7 @@ public class PostUpdateServlet extends HttpServlet {
     }
     
     private PostDAO postDao;
+    private ArrayList<String> house_types;
     
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -48,6 +50,14 @@ public class PostUpdateServlet extends HttpServlet {
         }
 	    
 	    postDao = new PostDAO(conn);
+	    try {
+			house_types = postDao.getHouseTypes();
+			for(String s: house_types) {
+				System.out.println(s);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,11 +70,8 @@ public class PostUpdateServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(post == null) {
-			System.out.println("kapec");
-		}
-		
 		request.setAttribute("myPosts", post);
+		request.setAttribute("houseTypes", house_types);
 		
 		request.getRequestDispatcher("/WEB-INF/post_update.jsp").forward(request, response);
 	}
@@ -80,10 +87,10 @@ public class PostUpdateServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(updatedPost == null) {
-			System.out.println("kapec");
+		String selectedItem = "";
+		if(request.getParameter("Points") != null){
+		   selectedItem = request.getParameter("Points").toString();
 		}
-		
 		
 		updatedPost.setAddress(request.getParameter("address"));
 		updatedPost.setArchived(false);
@@ -91,18 +98,19 @@ public class PostUpdateServlet extends HttpServlet {
 		updatedPost.setCreationDate(new Timestamp(System.currentTimeMillis()));
 		updatedPost.setDescription(request.getParameter("description"));
 		updatedPost.setFloor(Integer.parseInt(request.getParameter("floor")));
-		updatedPost.setHouse_type(request.getParameter("house_type"));
+		updatedPost.setHouse_type(selectedItem);
 		updatedPost.setNum_rooms(Integer.parseInt(request.getParameter("rooms")));
 		updatedPost.setPhone(request.getParameter("phone"));
 		updatedPost.setPrice(Long.parseLong(request.getParameter("price")));
 		updatedPost.setYear(Long.parseLong(request.getParameter("year")));
-		
 		
 		try {
 			postDao.updatePost(updatedPost);
 		} catch (SQLException e) {
 			throw new PostWasNotCreated();
 		}
+		
+		request.setAttribute("houseTypes", house_types);
 		
 		response.sendRedirect(request.getContextPath());
 	}

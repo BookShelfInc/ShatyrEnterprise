@@ -9,6 +9,9 @@
 </head>
 <body>
 	<h1>My Posts</h1>
+	<br>
+	<a href="create_post">Create Post</a>
+	<br>
 	<c:forEach items="${myPosts}" var="a" varStatus="cnt">
 		<a href='post_detail/<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>
 		<p><c:out value="${a.getPrice()}"/></p>
@@ -16,5 +19,7 @@
 		<a href='post_update/<c:out value="${a.getId()}"/>'> Edit </a>
 		<br>
 	</c:forEach>
+	<br>
+	<a href="${rootPath}">Back</a>
 </body>
 </html>
