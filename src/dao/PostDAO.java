@@ -144,6 +144,31 @@ public class PostDAO implements IPost {
         boolean afRows = stm.execute();
         return afRows;
 	}
+	
+	@Override
+	public boolean updatePostWithImage(PostDTO post, String image_url) throws SQLException {
+		String sql = "update posts set address=?, area=?, house_type=?, num_rooms=?, floor=?, price=?, description=?, year=?, "
+				+ "creation_date=?, phone=?, archived=? image_url=? where id=?";
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+		
+		stm.setString(1, post.getAddress());
+		stm.setInt(2, post.getArea());
+		stm.setString(3, post.getHouse_type());
+		stm.setInt(4, post.getNum_rooms());
+		stm.setInt(5, post.getFloor());
+		stm.setLong(6, post.getPrice());
+		stm.setString(7, post.getDescription());
+		stm.setLong(8, post.getYear());
+		stm.setTimestamp(9, post.getCreationDate());
+		stm.setString(10, post.getPhone());
+		stm.setBoolean(11, post.isArchived());
+		stm.setString(12, image_url);
+		stm.setLong(13, post.getId());
+		
+        
+        boolean afRows = stm.execute();
+        return afRows;
+	}
 
 	@Override
 	public boolean deletePost(Long post_id) throws SQLException {
@@ -269,6 +294,55 @@ public class PostDAO implements IPost {
 		
 		stm.setBoolean(1, val);
 		stm.setLong(2, post_id);
+        
+        boolean afRows = stm.execute();
+        return afRows;
+	}
+
+	@Override
+	public PostDTO addPostWithImage(PostDTO post, String image_url) throws SQLException {
+		if(this.isDuplicate(post.getAddress(), post.getDescription())) {
+			return null;
+		}
+		
+		String sql = "insert into posts(address, area, house_type, num_rooms, floor, price, description, year, "
+				+ "creation_date, phone, archived, image_url) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		PreparedStatement stm = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		stm.setString(1, post.getAddress());
+		stm.setInt(2, post.getArea());
+		stm.setString(3, post.getHouse_type());
+		stm.setInt(4, post.getNum_rooms());
+		stm.setInt(5, post.getFloor());
+		stm.setLong(6, post.getPrice());
+		stm.setString(7, post.getDescription());
+		stm.setLong(8, post.getYear());
+		stm.setTimestamp(9, post.getCreationDate());
+		stm.setString(10, post.getPhone());
+		stm.setBoolean(11, post.isArchived());
+		stm.setString(12, image_url);
+		
+		int afRows = stm.executeUpdate();
+
+        ResultSet rs = stm.getGeneratedKeys();
+
+        if(rs.next() && rs != null) {
+        		post.setId(rs.getLong("id"));
+        		
+            return post;
+        }
+        
+		return null;
+	}
+
+	@Override
+	public boolean addImageToPost(PostDTO post, String image_url) throws SQLException {
+		String sql = "update posts set image_url=?  where id=?";
+		PreparedStatement stm = this.connection.prepareStatement(sql);
+		
+		stm.setString(1, image_url);
+		stm.setLong(2, post.getId());
+		
         
         boolean afRows = stm.execute();
         return afRows;

@@ -11,8 +11,12 @@ public interface IPost {
 	public ArrayList<PostDTO> getAllPosts() throws SQLException;
 	public PostDTO getPostById(Long id) throws SQLException;
 	public PostDTO addPost(PostDTO post) throws SQLException;
+	public PostDTO addPostWithImage(PostDTO post, String image_url) throws SQLException;
+	
+	public boolean addImageToPost(PostDTO post, String image_url) throws SQLException;
 	
 	public boolean updatePost(PostDTO post) throws SQLException;
+	public boolean updatePostWithImage(PostDTO post, String image_url) throws SQLException;
 	public boolean deletePost(Long post_id) throws SQLException;
 	
 	public boolean archivePost(Long post_id, boolean val) throws SQLException;

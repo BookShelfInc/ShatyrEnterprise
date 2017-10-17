@@ -8,80 +8,127 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ShatyrEnterprise</title>
+<style>
+	.row {
+		display:flex;
+		width: 100%;
+		justify-content: center;
+	}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
 </head>
 <body>
+	<%@include file="header.jsp" %>
+	
+	<c:if test="${authUser != null}">
+		<a href="my_post" class="left" style="padding: 15px;">My Posts</a>
+		<a href="signout/" class="right" style="padding: 15px;">Sign-Out</a>
+		<br><br><brs><h3>Hello <c:out value="${authUser.getEmail()}"/></h3>
+	</c:if>
 
-<h1>Shatyr Enterprise LLC</h1>
+	<c:if test="${authUser == null}">
+		<a href="login/" class="right" style="padding: 15px;">Sign-In</a>
+		<a href="signup/" class="right" style="padding: 15px;">Sign-Up</a>
+		<h3>Hello</h3>
+	</c:if>
 
-<c:if test="${authUser != null}">
-	<h3>Hello <c:out value="${authUser.getEmail()}"/></h3>
-	<a href="signout/">Sign-Out</a>
-	<a href="create_post">Create Post</a>
-	<a href="my_post">My Posts</a>
-</c:if>
-
-<h1><c:out value="${val}"/></h1>
-
-<c:if test="${authUser == null}">
-	<h3>Hello</h3>
-	<a href="login/">Sign-In</a>
-	<a href="signup/">Sign-up</a>
-</c:if>
-
-<br>
-<br>
-
-
-<h3>Filter:</h3>
-<form action="${pageContext.request.contextPath}/" method="POST">
-	<label> Area </label>
-    <input type="number" name="area"/>
-    <br>
-
-    <label> Price</label>
-    <input type="number" name="price"/>
-    <br>
-    
-    <label> Number of rooms </label>
-    <input type="number" name="num_rooms"/>
-    <br>
-
-    <label> HouseType</label>
-    <select name="Points" size="1" id="Points">
-		<c:forEach items="${houseTypes}" var="a" varStatus="cnt">
-			<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>w
-		</c:forEach>
-	</select>
+	<br>
 	<br>
 	
-	<label> Floor</label>
-    <input type="number" name="floor"/>
-    <br>
+	<div class="container">
+		<h3>Filter:</h3>
+		<form action="${pageContext.request.contextPath}/" method="POST">
+		 <div class="input-field col s12">
+		    <label> Area </label>
+	    		<input type="number" name="area"/>
+  		</div>
+	    <br>
+		
+		<div class="input-field col s12">
+		    <label> Price</label>
+	    		<input type="number" name="price"/>
+  		</div>
+	    <br>
+	    
+	    <div class="input-field col s12">
+		    <label> Number of rooms </label>
+	    		<input type="number" name="num_rooms"/>
+  		</div>    
+	    <br>
+	    
+  		<div class="input-field col s12">
+		    <select name="Points" size="1" id="Points">
+			    <option value="" disabled selected>Choose your option</option>
+				<c:forEach items="${houseTypes}" var="a" varStatus="cnt">
+					<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>
+				</c:forEach>
+			</select>
+			<label>House type</label>
+  		</div>
+  		
+		<br>
+		<div class="input-field col s12">
+		    <label> Floor</label>
+	    		<input type="number" name="floor"/>
+  		</div>
+	    <br>
+		
+		    <input type="submit" name="pageName" value="Filter"/>
+  		</div>
+	</form>			
+	</div>
 
-    <input type="submit" name="pageName" value="Filter"/>
-</form>
 
-<br>
-<h3>Order by:</h3>
-<form action="${pageContext.request.contextPath}/" method="POST">
-	<select name="Points" size="1" id="Points">
-		<c:forEach items="${ordersList}" var="a" varStatus="cnt">
-			<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>
-		</c:forEach>
-	</select>
-
-    <input type="submit" name="pageName" value="Order"/>
-</form>
-
-<br>
-<br>
-<h1>Posts:</h1>
-<c:forEach items="${allPosts}" var="a" varStatus="cnt">
-	<a href='post_detail/<c:out value="${a.getId()}"/>'><c:out value="${a.getAddress()}"/></a>
-	<p><c:out value="${a.getPrice()}"/></p>
-	<p><c:out value="${a.getArea()}"/></p>
 	<br>
-</c:forEach>
+	
+	<div class="container">
+	<h3>Order by:</h3>
+		<form action="${pageContext.request.contextPath}/" method="POST">
+			<select name="Points" size="1" id="Points">
+				<c:forEach items="${ordersList}" var="a" varStatus="cnt">
+					<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>
+				</c:forEach>
+			</select>
+	
+		    <input type="submit" name="pageName" value="Order"/>
+		</form>
+	</div>
 
+	<br>
+	<br>
+	<h1>Posts:</h1>
+	
+	<div>
+		<c:forEach items="${allPosts}" var="a" varStatus="cnt">		
+			<div class="row">
+	        <div class="col s8 m7">
+	          <div class="card">
+	            <div class="card-image">
+	              <img src="https://s3.us-east-2.amazonaws.com/shatyr-images/${a.getImage_url()}">
+	              <span class="card-title"><c:out value="${a.getAddress()}"/></span>
+	            </div>
+	            <div class="card-content">
+	              <p><c:out value="${a.getDescription()}"/></p>
+	            </div>
+	            <div class="card-action">
+	              <a href='post_detail/<c:out value="${a.getId()}"/>'>Go to post</a>
+	            </div>
+	          </div>
+	        </div>
+	      </div>	
+		<br>
+		</c:forEach>
+	</div>
+	
+	<%@include file="footer.jsp" %>
 </body>
 </html>

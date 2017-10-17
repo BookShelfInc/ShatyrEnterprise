@@ -1,5 +1,6 @@
 header, footer {
     padding: 1em;
+    width: 100%;
     color: white;
     background-color: black;
     clear: left;
@@ -11,9 +12,17 @@ header, footer {
     display: flex;
 }
 
+body, html {
+	display: flex;
+    flex-direction: column;
+	height: 100%;
+	flex:1 0 auto;
+	padding: 0;
+	margin: 0;
+}
 nav {
     float: left;
-    max-width: 200px;
+    max-width: 160px;
     margin: 0;
     padding: 1em;
 }

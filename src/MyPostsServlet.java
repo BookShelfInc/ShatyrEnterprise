@@ -69,6 +69,9 @@ public class MyPostsServlet extends HttpServlet {
 		}
 		
 		System.out.println(myPosts.size());
+		for(PostDTO p: myPosts) {
+			System.out.println(p.getImage_url());
+		}
 		request.setAttribute("myPosts", myPosts);
 		request.setAttribute("rootPath", goBack);
 		

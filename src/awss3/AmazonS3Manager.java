@@ -2,6 +2,7 @@ package awss3;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -29,8 +30,16 @@ public class AmazonS3Manager {
 		s3client = new AmazonS3Client(new ProfileCredentialsProvider().getCredentials());
 	}
 	
-	public void uploadFile(File file, String keyName) {
-		this.s3client.putObject(new PutObjectRequest(this.bucketName, keyName, file));
+	public void uploadFile(String keyName, InputStream inputStream) {
+		ObjectMetadata metadata = new ObjectMetadata();
+		Long contentLength=0L;
+		try {
+			contentLength = Long.valueOf(inputStream.available());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		metadata.setContentLength(contentLength);
+		this.s3client.putObject(new PutObjectRequest(this.bucketName, keyName, inputStream, metadata));
 	}
 	
 	public File getFile(String keyName) {
