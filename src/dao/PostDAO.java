@@ -148,7 +148,7 @@ public class PostDAO implements IPost {
 	@Override
 	public boolean updatePostWithImage(PostDTO post, String image_url) throws SQLException {
 		String sql = "update posts set address=?, area=?, house_type=?, num_rooms=?, floor=?, price=?, description=?, year=?, "
-				+ "creation_date=?, phone=?, archived=? image_url=? where id=?";
+				+ "creation_date=?, phone=?, archived=?, image_url=? where id=?";
 		PreparedStatement stm = this.connection.prepareStatement(sql);
 		
 		stm.setString(1, post.getAddress());
