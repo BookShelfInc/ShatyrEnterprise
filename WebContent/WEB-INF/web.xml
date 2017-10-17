@@ -78,7 +78,7 @@
     </init-param>
     <init-param>
       <param-name>dbPassword</param-name>
-      <param-value>liverpool1892</param-value>
+      <param-value>adminadmin1</param-value>
     </init-param>
   </servlet>
   

@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>${post.address}</h1>
-	<p>${post.area}</p>
-	<p>${post.house_type}</p>
-	<p>${post.num_rooms}</p>
-	<p>${post.price}</p>
-	<p>${post.description}</p>
-	<p>${post.phone}</p>
+	<h1>${post.getAddress()}</h1>
+	<p>${post.getArea()}</p>
+	<p>${post.getHouse_type()}</p>
+	<p>${post.getNum_rooms()}</p>
+	<p>${post.getPrice()}</p>
+	<p>${post.getDescription()}</p>
+	<p>${post.getPhone()}</p>
 </body>
 </html>
