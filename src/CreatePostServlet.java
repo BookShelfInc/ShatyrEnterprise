@@ -1,19 +1,24 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import awss3.AmazonS3Manager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,6 +36,7 @@ import exceptions.PostWasNotCreated;
 import exceptions.UserWasNotCreated;
 
 //@WebServlet("/CreatePostServlet")
+@MultipartConfig
 public class CreatePostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -86,30 +92,6 @@ public class CreatePostServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		if (isMultipart) {
-			System.out.println("image");
-            FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            try {
-                List<FileItem> multiparts = upload.parseRequest((RequestContext) request);
-
-               for (FileItem item : multiparts) {
-	               if (!item.isFormField()) {
-	            	   String name = new File(item.getName()).getName();
-	               item.write(new File(UPLOAD_DIRECTORY + File.separator + name));
-	           }
-            }
-                    
-               request.setAttribute("message", "Your file has been uploaded!");
-            } 
-            catch (Exception e) 
-            {
-             request.setAttribute("message", "File Upload Failed due to " + e);
-            }
-	    } else {
-	    		System.out.println("not image");
-	    }*/
 		
 		PostDTO newPost = new PostDTO();
 		
@@ -130,12 +112,45 @@ public class CreatePostServlet extends HttpServlet {
 		newPost.setPrice(Long.parseLong(request.getParameter("price")));
 		newPost.setYear(Long.parseLong(request.getParameter("year")));
 		
+		InputStream inputStream = null;
+		Part filePart = request.getPart("photo");
+		boolean withImage = false;
+		String imageUrl = "";
+        if (filePart != null) {
+            System.out.println(filePart.getName());
+            System.out.println(filePart.getSize());
+            System.out.println(filePart.getContentType());
+            System.out.println(filePart.getContentType().split("/")[1]);
+            
+            inputStream = filePart.getInputStream();
+            
+            if(filePart.getContentType().split("/")[0].equals("application")) {
+            		System.out.print("image input is empty");
+            } else {
+            		imageUrl = newPost.getAddress()+"."+filePart.getContentType().split("/")[1];
+                System.out.print("imageUrl: " + imageUrl);
+                
+                withImage = true;
+                newPost.setImage_url(imageUrl);
+                AmazonS3Manager s3Manager = new AmazonS3Manager("shatyr-images-test");
+                s3Manager.uploadFile(imageUrl, inputStream);
+            }
+        }
+		
 		request.setAttribute("houseTypes", house_types);
 		
-		try {
-			newPost = postDao.addPost(newPost);
-		} catch (SQLException e) {
-			throw new PostWasNotCreated();
+		if(withImage) {
+			try {
+				newPost = postDao.addPostWithImage(newPost, imageUrl);
+			} catch (SQLException e) {
+				throw new PostWasNotCreated();
+			}
+		} else {
+			try {
+				newPost = postDao.addPost(newPost);
+			} catch (SQLException e) {
+				throw new PostWasNotCreated();
+			}
 		}
 		
 		if(newPost != null) {
@@ -152,5 +167,6 @@ public class CreatePostServlet extends HttpServlet {
 		else {
 			request.getRequestDispatcher("/WEB-INF/create_post.jsp").forward(request, response);
 		}
+		
 	}
 }

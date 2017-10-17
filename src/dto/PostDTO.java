@@ -20,7 +20,7 @@ public class PostDTO {
 	
 	public PostDTO() {
 		this.archived = false;
-		this.setImage_url(null);
+		this.image_url = "";
 	}
 	
 	public PostDTO(String _address, int _area, String _house_type, int _num_rooms, int _floor, 
@@ -36,7 +36,7 @@ public class PostDTO {
 		this.creation_date = _creation_date;
 		this.phone = _phone;
 		this.archived = _archived;
-		this.setImage_url(_image_url);
+		this.image_url = _image_url;
 	}
 	
 	public PostDTO(String _address, int _area, String _house_type, int _num_rooms, int _floor, 

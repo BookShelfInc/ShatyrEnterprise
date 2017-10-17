@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>${post.getAddress()}</title>
 </head>
 <body>
 	<h1>${post.getAddress()}</h1>
@@ -15,6 +15,7 @@
 	<p>${post.getPrice()}</p>
 	<p>${post.getDescription()}</p>
 	<p>${post.getPhone()}</p>
+	<p>${post.getImage_url()}</p>
 	
 	<c:if test = "${post.getImage_url() != null}">
 		<img src="https://s3.us-east-2.amazonaws.com/shatyr-images-test/${post.getImage_url()}" 

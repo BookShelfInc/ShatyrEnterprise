@@ -85,6 +85,12 @@
   <servlet>
     <servlet-name>CreatePostServlet</servlet-name>
     <servlet-class>CreatePostServlet</servlet-class>
+    
+    <!-- <multipart-config>
+    		<max-file-size>xxxxx</max-file-size>
+		<max-request-size>yyyyy</max-request-size>
+    </multipart-config> -->
+    
     <init-param>
       <param-name>jdbcUrl</param-name>
       <param-value>jdbc:postgresql://postgresql-test.cody5htenprn.us-east-2.rds.amazonaws.com:5432/rds_test</param-value>

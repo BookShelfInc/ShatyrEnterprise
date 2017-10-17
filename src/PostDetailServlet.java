@@ -64,7 +64,6 @@ public class PostDetailServlet extends HttpServlet {
 		}
 		
 		request.setAttribute("post", post);
-		System.out.println(post.getImage_url());
 		
 		request.getRequestDispatcher("/WEB-INF/post_detail.jsp").forward(request, response);
 	}
