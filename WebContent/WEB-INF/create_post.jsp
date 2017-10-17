@@ -84,7 +84,8 @@
   			</div>
   			<br>
   			
-  			<a class="btn-floating btn-large waves-effect waves-light red" type="submit"><i class="material-icons">check_circle</i></a>
+  			<input type="submit" value="Submit"/>
+  			<!-- <input class="btn-floating btn-large waves-effect waves-light red" type="submit"><i class="material-icons">check_circle</i></input> -->
   		</form>
 	</div>	
 	
