@@ -78,8 +78,6 @@ public class MainServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		AWSCredentials credentials = new ProfileCredentialsProvider().getCredentials()
-		
 		ArrayList<PostDTO> allPosts = null;
 		try {
 			allPosts = postDao.getAllPosts();

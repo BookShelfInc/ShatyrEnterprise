@@ -16,9 +16,27 @@ public class PostDTO {
 	private Timestamp creation_date;
 	private String phone;
 	private boolean archived;
+	private String image_url;
 	
 	public PostDTO() {
 		this.archived = false;
+		this.setImage_url(null);
+	}
+	
+	public PostDTO(String _address, int _area, String _house_type, int _num_rooms, int _floor, 
+			Long _price, String _description, Long _year, Timestamp _creation_date, String _phone, boolean _archived, String _image_url) {
+		this.address = _address;
+		this.area = _area;
+		this.house_type = _house_type;
+		this.num_rooms = _num_rooms;
+		this.floor = _floor;
+		this.price = _price;
+		this.description = _description;
+		this.year = _year;
+		this.creation_date = _creation_date;
+		this.phone = _phone;
+		this.archived = _archived;
+		this.setImage_url(_image_url);
 	}
 	
 	public PostDTO(String _address, int _area, String _house_type, int _num_rooms, int _floor, 
@@ -130,6 +148,14 @@ public class PostDTO {
 
 	public void setArchived(boolean archived) {
 		this.archived = archived;
+	}
+
+	public String getImage_url() {
+		return image_url;
+	}
+
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
 	}
 	
 }

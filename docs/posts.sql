@@ -10,5 +10,6 @@ create table posts(
     year bigint,
     creation_date timestamp,
     phone varchar(256),
+    image_url varchar(1024),
     archived boolean default false
 );

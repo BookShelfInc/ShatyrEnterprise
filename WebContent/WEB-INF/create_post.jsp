@@ -8,7 +8,7 @@
 <title>Create Post</title>
 </head>
 <body>
-	<form action="" method="POST">
+	<form action="" method="POST"> <!-- enctype="multipart/form-data"> -->
 			<label>Address</label>
     			<input type="text" name="address" required/>
     			<br>
@@ -39,8 +39,14 @@
 		    <br>
 		    <label>Year</label>
 		    <input type="text" name="year" required/>
+		    <br>
+		    
+		    <!-- <label>Image</label>
+	    		<input type="file" name="image" />
+	    		<br> -->
 		    
 		    <input type="submit" value="SUBMIT">
 	</form>
+	
 </body>
 </html>
