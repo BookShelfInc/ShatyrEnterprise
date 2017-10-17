@@ -145,7 +145,7 @@ public class UserDAO implements IUser{
             post.setCreationDate(rs.getTimestamp("creation_date"));
             post.setPhone(rs.getString("phone"));
             post.setArchived(rs.getBoolean("archived"));
-            
+            post.setImage_url(rs.getString("image_url"));
             allPosts.add(post);
 		}
 		

@@ -132,7 +132,7 @@ public class PostUpdateServlet extends HttpServlet {
                 
                 withImage = true;
                 updatedPost.setImage_url(imageUrl);
-                AmazonS3Manager s3Manager = new AmazonS3Manager("shatyr-images-test");
+                AmazonS3Manager s3Manager = new AmazonS3Manager("shatyr-images");
                 s3Manager.uploadFile(imageUrl, inputStream);
             }
         }

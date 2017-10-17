@@ -9,10 +9,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ShatyrEnterprise</title>
 <style>
+
 	.row {
-		display:flex;
-		width: 100%;
+		min-width: 400px;
+		max-width: 400px;
+		min-height: 600px;
+		max-height: 600px;
+	}
+	.container-fluid {
+		display: flex;
 		justify-content: center;
+	}
+	form {
+		min-width: 300px;
+		max-width: 300px;
+		margin: 0 100px;
+	}
+	.posts {
+		display: flex;
+	    flex-direction: column;
+	    align-items: center;
 	}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
@@ -44,9 +60,9 @@
 	<br>
 	<br>
 	
-	<div class="container">
-		<h3>Filter:</h3>
+	<div class="container-fluid">
 		<form action="${pageContext.request.contextPath}/" method="POST">
+		<h3>Filter:</h3>
 		 <div class="input-field col s12">
 		    <label> Area </label>
 	    		<input type="number" name="area"/>
@@ -83,16 +99,17 @@
 	    <br>
 		
 		    <input type="submit" name="pageName" value="Filter"/>
-  		</div>
+  		
 	</form>			
-	</div>
+	
 
 
 	<br>
 	
-	<div class="container">
-	<h3>Order by:</h3>
+	
+	
 		<form action="${pageContext.request.contextPath}/" method="POST">
+			<h3>Order by:</h3>
 			<select name="Points" size="1" id="Points">
 				<c:forEach items="${ordersList}" var="a" varStatus="cnt">
 					<option value='<c:out value="${a}"/>'><c:out value="${a}"/></option>
@@ -105,15 +122,16 @@
 
 	<br>
 	<br>
-	<h1>Posts:</h1>
 	
-	<div>
+	
+	<div class="posts">
+	<h1>Posts:</h1>
 		<c:forEach items="${allPosts}" var="a" varStatus="cnt">		
 			<div class="row">
-	        <div class="col s8 m7">
+	        <div class="col s12">
 	          <div class="card">
 	            <div class="card-image">
-	              <img src="https://s3.us-east-2.amazonaws.com/shatyr-images/${a.getImage_url()}">
+	              <img src="https://s3.us-east-2.amazonaws.com/shatyr-images/${a.getImage_url()}" width="400px" height="400px">
 	              <span class="card-title"><c:out value="${a.getAddress()}"/></span>
 	            </div>
 	            <div class="card-content">

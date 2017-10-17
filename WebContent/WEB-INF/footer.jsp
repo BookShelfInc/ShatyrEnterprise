@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <style>
+ 	footer {
+ 		min-height: 300px;
+ 		max-height: 300px;
+ 	}
+ </style>
 <footer class="page-footer teal">
           <div class="container">
             <div class="row">

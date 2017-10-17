@@ -29,7 +29,7 @@
 	  		
 	  		<div class="input-field col s12">
 			    <label>Area</label>
-	    			<input type="text" name="area" required/>>
+	    			<input type="text" name="area" required/>
 	  		</div>
 	  		
 	  		<div class="input-field col s12">

@@ -22,7 +22,7 @@
 	<%@include file="header.jsp" %>
 	<br><br><br>
 	<div class="container">
-		<form action="" method="POST">
+		<form action="" method="POST" enctype="multipart/form-data">
 			<div class="input-field col s12">
 			    <label>Address</label>
     				<input type="text" value='<c:out value="${myPosts.getAddress()}"/>' name="address"/>
